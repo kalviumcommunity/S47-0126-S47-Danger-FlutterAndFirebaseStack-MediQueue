@@ -1,0 +1,79 @@
+name: mediqueue
+description: Lightweight Digital Queue Management for Hospitals - A mobile-first queue & appointment management system for Tier-2/3 hospitals and clinics.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # UI & Design
+  cupertino_icons: ^1.0.6
+  google_fonts: ^6.1.0
+  
+  # Firebase
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.16.0
+  cloud_firestore: ^4.14.0
+  firebase_storage: ^11.6.0
+  firebase_messaging: ^14.7.10
+  firebase_analytics: ^10.8.0
+  firebase_crashlytics: ^3.4.9
+  firebase_performance: ^0.9.3+6
+  cloud_functions: ^4.6.0
+  
+  # State Management
+  provider: ^6.1.1
+  
+  # QR Code
+  qr_flutter: ^4.1.0
+  qr_code_scanner: ^1.0.1
+  
+  # Maps & Location
+  google_maps_flutter: ^2.5.0
+  geolocator: ^10.1.0
+  geocoding: ^2.1.1
+  
+  # Utilities
+  intl: ^0.18.1
+  shared_preferences: ^2.2.2
+  path_provider: ^2.1.1
+  url_launcher: ^6.2.2
+  
+  # Networking
+  http: ^1.1.2
+  dio: ^5.4.0
+  
+  # Local Notifications
+  flutter_local_notifications: ^16.3.0
+  
+  # Image Handling
+  image_picker: ^1.0.7
+  cached_network_image: ^3.3.1
+  
+  # Permissions
+  permission_handler: ^11.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+  mockito: ^5.4.4
+  build_runner: ^2.4.7
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - assets/images/
+    - assets/icons/
+  
+  # fonts:
+  #   - family: Roboto
+  #     fonts:
+  #       - asset: assets/fonts/Roboto-Regular.ttf
+  #       - asset: assets/fonts/Roboto-Bold.ttf
+  #         weight: 700
