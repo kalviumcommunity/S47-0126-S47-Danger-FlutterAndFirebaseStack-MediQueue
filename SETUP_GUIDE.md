@@ -170,7 +170,7 @@ flutter doctor -v
 
 ```bash
 # Navigate to project directory
-cd /Users/somuyakhandelwal/S47-0126-S47-Danger-FlutterAndFirebaseStack-MediQueue
+cd S47-0126-S47-Danger-FlutterAndFirebaseStack-MediQueue
 
 # Run the initialization script
 ./scripts/init_flutter_project.sh
