@@ -62,7 +62,17 @@ Tools • Dart 3.x.x • DevTools 2.x.x
    - Choose "Standard" installation
    - Wait for SDK components to download
 
-3. **Install Flutter & Dart Plugins**
+3. **Install JDK 11 or Higher**
+   - **Recommended:** Install using Homebrew:
+     ```bash
+     brew install openjdk@17
+     # Link the openjdk to system-wide
+     sudo ln -sfn $(brew --prefix)/opt/openjdk@17/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-17.jdk
+     ```
+   - **Manual:** Download from [Oracle](https://www.oracle.com/java/technologies/downloads/) or [Adoptium](https://adoptium.net/)
+   - Verify: `java -version` (should be 11 or higher)
+
+4. **Install Flutter & Dart Plugins**
    ```
    Android Studio → Preferences → Plugins
    Search for "Flutter" → Install
@@ -70,7 +80,7 @@ Tools • Dart 3.x.x • DevTools 2.x.x
    Restart Android Studio
    ```
 
-4. **Configure Android SDK**
+5. **Configure Android SDK**
    ```
    Android Studio → Preferences → Appearance & Behavior → System Settings → Android SDK
    
@@ -86,7 +96,7 @@ Tools • Dart 3.x.x • DevTools 2.x.x
    ✓ Intel x86 Emulator Accelerator (HAXM installer)
    ```
 
-5. **Accept Android Licenses**
+6. **Accept Android Licenses**
    ```bash
    flutter doctor --android-licenses
    # Type 'y' to accept all licenses

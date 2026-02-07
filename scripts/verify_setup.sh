@@ -64,7 +64,31 @@ else
 fi
 echo ""
 
-echo "4️⃣  Checking Android SDK..."
+echo "4️⃣  Checking JDK Installation..."
+if command -v java &> /dev/null; then
+    JAVA_VERSION=$(java -version 2>&1 | head -n 1)
+    echo "   Current: $JAVA_VERSION"
+    
+    # Extract major version
+    VERSION_MAJOR=$(java -version 2>&1 | head -n 1 | cut -d'"' -f2 | cut -d'.' -f1)
+    # Handle cases like "1.8.x"
+    if [ "$VERSION_MAJOR" = "1" ]; then
+        VERSION_MAJOR=$(java -version 2>&1 | head -n 1 | cut -d'"' -f2 | cut -d'.' -f2)
+    fi
+
+    if [ "$VERSION_MAJOR" -ge 11 ]; then
+        print_success "JDK 11+ is installed (Version: $VERSION_MAJOR)"
+    else
+        print_failure "JDK version is too old (found $VERSION_MAJOR, need 11+)"
+        echo "   → Install JDK 11+: brew install openjdk@17"
+    fi
+else
+    print_failure "JDK is not installed"
+    echo "   → Install JDK 11+: brew install openjdk@17"
+fi
+echo ""
+
+echo "5️⃣  Checking Android SDK..."
 if [ -n "$ANDROID_HOME" ] || [ -n "$ANDROID_SDK_ROOT" ]; then
     print_success "Android SDK path is configured"
 else
@@ -73,7 +97,7 @@ else
 fi
 echo ""
 
-echo "5️⃣  Checking Xcode Command Line Tools..."
+echo "6️⃣  Checking Xcode Command Line Tools..."
 if xcode-select -p &> /dev/null; then
     print_success "Xcode Command Line Tools are installed"
 else
@@ -82,7 +106,7 @@ else
 fi
 echo ""
 
-echo "6️⃣  Checking CocoaPods..."
+echo "7️⃣  Checking CocoaPods..."
 if command -v pod &> /dev/null; then
     POD_VERSION=$(pod --version)
     print_success "CocoaPods is installed: $POD_VERSION"
@@ -92,7 +116,7 @@ else
 fi
 echo ""
 
-echo "7️⃣  Running Flutter Doctor..."
+echo "8️⃣  Running Flutter Doctor..."
 echo "-------------------------------------------"
 if command -v flutter &> /dev/null; then
     flutter doctor
@@ -109,7 +133,7 @@ else
 fi
 echo ""
 
-echo "8️⃣  Checking for Android Emulator..."
+echo "9️⃣  Checking for Android Emulator..."
 if command -v flutter &> /dev/null; then
     DEVICES=$(flutter devices 2>&1)
     if echo "$DEVICES" | grep -q "emulator"; then
@@ -123,7 +147,7 @@ else
 fi
 echo ""
 
-echo "9️⃣  Checking Project Dependencies..."
+echo "🔟  Checking Project Dependencies..."
 if [ -f "pubspec.yaml" ]; then
     print_success "pubspec.yaml found"
     
@@ -139,7 +163,7 @@ else
 fi
 echo ""
 
-echo "🔟  Checking Git Configuration..."
+echo "1️⃣1️⃣  Checking Git Configuration..."
 if command -v git &> /dev/null; then
     print_success "Git is installed"
     
