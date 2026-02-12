@@ -1,3 +1,27 @@
+## 🧩 Widget Rebuild Demo
+
+This project includes an interactive demonstration screen to help the team understand Flutter's reactive UI model and widget rebuilds.
+
+### How to Use
+- Navigate to `/widget-demo` route in the app (see `app_routes.dart`).
+- Try the counter, color picker, text input, and toggles.
+- Watch widgets flash when they rebuild and check the rebuild count.
+- Open the console to see rebuild logs with timestamps.
+- Use Flutter DevTools to inspect the widget tree.
+
+### Learning Outcomes
+- How `setState()` triggers build()
+- Why only changed widgets rebuild (when optimized)
+- The importance of `const` constructors
+- When to split widgets for performance
+
+### Performance Tips
+- Use `const` constructors where possible.
+- Split widgets to minimize rebuilds.
+- Avoid unnecessary `setState` calls.
+- Use Flutter DevTools to inspect widget tree.
+
+---
 ## 🗂️ Project Structure & Architecture
 
 MediQueue is a modular Flutter app following clean architecture principles. The folder structure is designed for scalability, maintainability, and ease of onboarding new developers.
