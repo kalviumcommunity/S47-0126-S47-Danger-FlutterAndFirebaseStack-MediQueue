@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+import 'package:flutter/material.dart';
+import 'app.dart';
+
+void main() {
+  runApp(const MediQueueApp());
+}
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key}); // This line is no longer needed
 
   // This widget is the root of your application.
   @override

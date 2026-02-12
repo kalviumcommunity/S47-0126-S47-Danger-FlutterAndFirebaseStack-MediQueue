@@ -1,0 +1,16 @@
+{
+  "mock_patients": [
+    {
+      "name": "John Doe",
+      "phone": "9876543210",
+      "token": 1,
+      "status": "waiting"
+    },
+    {
+      "name": "Jane Smith",
+      "phone": "9123456789",
+      "token": 2,
+      "status": "waiting"
+    }
+  ]
+}
