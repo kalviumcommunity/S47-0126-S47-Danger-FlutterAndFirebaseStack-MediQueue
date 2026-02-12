@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../shared/widgets/index.dart';
+import '../../shared/widgets/responsive_builder.dart';
+import '../../core/constants/app_spacing.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -9,29 +11,106 @@ class DashboardScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Dashboard Demo: Stateless & Stateful Widgets')),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(AppSpacing.md),
         children: [
-          const AppHeader(title: 'MediQueue', subtitle: 'StatelessWidget Example'),
-          const SizedBox(height: 12),
-          const LogoWidget(size: 64),
-          const SizedBox(height: 12),
-          const StatCard(label: 'Patients Today', value: 42),
-          const SizedBox(height: 12),
-          const PatientInfoCard(name: 'John Doe', phone: '9876543210', token: 'A12'),
-          const SizedBox(height: 12),
+          // Responsive header with logo and menu
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const LogoWidget(size: 40),
+              const Spacer(),
+              IconButton(icon: const Icon(Icons.menu), onPressed: () {}),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          const AppHeader(title: 'MediQueue', subtitle: 'Responsive Layout Demo'),
+          const SizedBox(height: AppSpacing.lg),
+          // Responsive stat cards
+          ResponsiveBuilder(
+            builder: (context, isTablet) {
+              if (isTablet) {
+                return Row(
+                  children: const [
+                    Expanded(child: StatCard(label: 'Patients', value: 42)),
+                    SizedBox(width: AppSpacing.md),
+                    Expanded(child: StatCard(label: 'Doctors', value: 7, color: Colors.green)),
+                    SizedBox(width: AppSpacing.md),
+                    Expanded(child: StatCard(label: 'Tokens', value: 120, color: Colors.orange)),
+                  ],
+                );
+              } else {
+                return Column(
+                  children: const [
+                    StatCard(label: 'Patients', value: 42),
+                    SizedBox(height: AppSpacing.sm),
+                    StatCard(label: 'Doctors', value: 7, color: Colors.green),
+                    SizedBox(height: AppSpacing.sm),
+                    StatCard(label: 'Tokens', value: 120, color: Colors.orange),
+                  ],
+                );
+              }
+            },
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          // Patient card with responsive padding
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final isTablet = constraints.maxWidth > 600;
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: isTablet ? AppSpacing.xl : AppSpacing.sm),
+                child: const PatientInfoCard(name: 'John Doe', phone: '9876543210', token: 'A12'),
+              );
+            },
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          // Responsive form layout
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(AppSpacing.md),
+              child: Column(
+                children: [
+                  FormFieldWidget(label: 'Name', validator: (v) => (v == null || v.isEmpty) ? 'Required' : null),
+                  const SizedBox(height: AppSpacing.md),
+                  FormFieldWidget(label: 'Phone', validator: (v) => (v == null || v.isEmpty) ? 'Required' : null),
+                  const SizedBox(height: AppSpacing.lg),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(onPressed: () {}, child: const Text('Submit')),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          // Queue list item example
+          Row(
+            children: [
+              const Icon(Icons.person),
+              const SizedBox(width: AppSpacing.sm),
+              const Expanded(child: Text('Patient Name')), // Expands to fill
+              IconButton(icon: const Icon(Icons.arrow_forward), onPressed: () {}),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          // Prevent overflow with scroll view
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: List.generate(10, (i) => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xs),
+                child: Chip(label: Text('Token ${i + 1}')),
+              )),
+            ),
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          // FittedBox for long text
+          const FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text('Long text that should fit in a single line and not overflow'),
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          // Footer
           const FooterText(text: '© 2026 MediQueue'),
-          const Divider(),
-          SearchBar(onSearch: (q) {}),
-          const SizedBox(height: 12),
-          CountdownTimer(seconds: 10),
-          const SizedBox(height: 12),
-          ToggleButton(options: ['Queue', 'History'], onChanged: (i) {}),
-          const SizedBox(height: 12),
-          AnimatedButton(label: 'Load Data', onPressed: () async { await Future.delayed(Duration(seconds: 1)); }),
-          const SizedBox(height: 12),
-          FormFieldWidget(label: 'Patient Name', validator: (v) => (v == null || v.isEmpty) ? 'Required' : null),
-          const SizedBox(height: 12),
-          const LifecycleDemoWidget(label: 'Lifecycle Example'),
         ],
       ),
     );
