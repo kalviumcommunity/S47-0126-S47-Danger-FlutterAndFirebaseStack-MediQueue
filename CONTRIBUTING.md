@@ -1,3 +1,42 @@
+## 🛠️ Development Guidelines
+
+### Code Organization
+- One widget per file (for complex widgets)
+- Use barrel files (`index.dart`) for module exports
+- Consistent naming conventions
+- Shared code goes in `shared/`, not `core/`
+
+### Branching
+- Use feature branches: `feature/<name>`
+- Use bugfix branches: `bugfix/<name>`
+- Use release branches: `release/<version>`
+
+### Commit Messages
+- Use clear, descriptive commit messages
+- Reference issues where relevant
+
+### PR Review
+- All code must be reviewed before merging
+- No circular dependencies allowed
+
+### Testing
+- Write unit tests for business logic
+- Test UI on emulator and physical device
+- Handle error and empty states
+
+### Style
+- Follow Dart/Flutter formatting
+- Use Material Design principles
+- Support dark mode
+
+### Getting Started
+1. Fork the repo
+2. Clone your fork
+3. Run `flutter pub get`
+4. Create a new branch for your feature
+
+---
+For questions, open an issue or contact the maintainers.
 # Contributing to MediQueue
 
 First off, thank you for considering contributing to MediQueue! It's people like you that make MediQueue such a great tool for healthcare digitization.

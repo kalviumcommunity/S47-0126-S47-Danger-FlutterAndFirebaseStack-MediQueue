@@ -1,3 +1,68 @@
+## 🗂️ Project Structure & Architecture
+
+MediQueue is a modular Flutter app following clean architecture principles. The folder structure is designed for scalability, maintainability, and ease of onboarding new developers.
+
+### Folder Structure
+```
+lib/
+├── main.dart                 # App entry point
+├── app.dart                  # MaterialApp configuration
+├── core/                     # Core functionality
+│   ├── constants/           # App-wide constants
+│   ├── theme/               # Theme configuration
+│   ├── utils/               # Helper functions
+│   └── config/              # App configuration
+├── features/                 # Feature-based modules
+│   ├── auth/
+│   │   ├── screens/
+│   │   ├── widgets/
+│   │   ├── models/
+│   │   └── services/
+│   ├── queue/
+│   └── dashboard/
+├── shared/                   # Shared across features
+│   ├── widgets/             # Reusable widgets
+│   ├── models/              # Common data models
+│   └── services/            # Shared services
+└── routes/                   # Navigation & routing
+assets/
+├── images/
+│   ├── logo/
+│   ├── icons/
+│   └── illustrations/
+├── fonts/
+│   └── Roboto/
+└── data/
+   └── mock_data.json
+```
+
+### Principles
+- **Feature-first:** Group by feature, not by type
+- **Separation of concerns:** UI, logic, and data are separate
+- **Scalability:** Easy to add new features
+- **Testability:** Clear boundaries for unit tests
+
+### Example Files
+- `main.dart`: Clean entry point (<50 lines)
+- `app.dart`: App configuration
+- `core/constants/app_constants.dart`: App-wide constants
+- `features/auth/screens/login_screen.dart`: Example screen
+- `shared/widgets/custom_button.dart`: Reusable widget
+- `assets/data/mock_data.json`: Example mock data
+
+### Best Practices
+- One widget per file (for complex widgets)
+- Barrel exports (`index.dart`) for each module
+- Consistent naming conventions
+- Shared code goes in `shared/`, not `core/`
+
+### Getting Started
+1. Clone the repo
+2. Run `flutter pub get`
+3. Start coding!
+
+---
+For more details, see ARCHITECTURE.md and CONTRIBUTING.md.
 # MediQueue - Lightweight Digital Queue Management for Hospitals
 
 [![Flutter](https://img.shields.io/badge/Flutter-3.0+-02569B?logo=flutter)](https://flutter.dev)

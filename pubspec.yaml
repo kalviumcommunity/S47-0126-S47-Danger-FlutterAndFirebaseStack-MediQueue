@@ -1,3 +1,15 @@
+flutter:
+  assets:
+    - assets/images/logo/
+    - assets/images/icons/
+    - assets/images/illustrations/
+    - assets/data/mock_data.json
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Regular.ttf
+        - asset: assets/fonts/Roboto/Roboto-Bold.ttf
+        - asset: assets/fonts/Roboto/Roboto-Italic.ttf
 name: mediqueue
 description: Lightweight Digital Queue Management for Hospitals - A mobile-first queue & appointment management system for Tier-2/3 hospitals and clinics.
 publish_to: 'none'
