@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'app.dart';
 import 'services/firestore_service.dart';
 import 'features/auth/services/auth_service.dart';
+import 'features/auth/providers/user_provider.dart';
 import 'services/sync_service.dart';
 import 'features/queue/queue_repository.dart';
 
@@ -17,17 +18,25 @@ void main() async {
     debugPrint('Firebase initialization error: $e');
   }
 
+  // Instantiate services that don't depend on other providers
+  final authService = AuthService();
+  final firestoreService = FirestoreService();
+  final queueRepository = QueueRepository();
+
   runApp(
     MultiProvider(
       providers: [
-        Provider<AuthService>(
-          create: (_) => AuthService(),
+        Provider<AuthService>.value(
+          value: authService,
         ),
-        Provider<FirestoreService>(
-          create: (_) => FirestoreService(),
+        Provider<FirestoreService>.value(
+          value: firestoreService,
         ),
-        Provider<QueueRepository>(
-          create: (_) => QueueRepository(),
+        Provider<QueueRepository>.value(
+          value: queueRepository,
+        ),
+        ChangeNotifierProvider<UserProvider>(
+          create: (_) => UserProvider(authService, firestoreService),
         ),
         ChangeNotifierProvider<SyncService>(
           create: (_) => SyncService(),

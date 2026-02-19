@@ -45,7 +45,7 @@ class _DoctorViewScreenState extends State<DoctorViewScreen> {
   }
 
   void _fetchNextPatient() {
-    final queue = _db._queue.where((p) => p.status == 'waiting').toList();
+    final queue = _db.queue.where((p) => p.status == 'waiting').toList();
     if (queue.isNotEmpty) {
       setState(() {
         _currentPatient = queue.first;

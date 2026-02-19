@@ -3,9 +3,14 @@ import 'app_routes.dart';
 
 import '../features/auth/screens/login_screen.dart';
 import '../features/dashboard/dashboard_screen.dart';
+import '../features/dashboard/doctor_view_screen.dart';
 import '../features/dashboard/widget_rebuild_demo_screen.dart';
 import '../features/auth/screens/register_screen.dart';
 import '../features/auth/screens/forgot_password_screen.dart';
+import '../features/auth/widgets/role_guard.dart';
+import '../features/auth/models/user_model.dart';
+
+import '../features/dashboard/receptionist_dashboard.dart';
 
 class QueueArguments {
   final String doctorId;
@@ -24,12 +29,12 @@ class RouteGenerator {
       case AppRoutes.dashboard:
         return MaterialPageRoute(builder: (_) => const DashboardScreen());
       case AppRoutes.queue:
-        final args = settings.arguments as QueueArguments?;
-        if (args == null) {
-          return MaterialPageRoute(builder: (_) => const NotFoundScreen());
-        }
+        // We can ignore args for now as ReceptionistDashboard shows global queue in this demo
         return MaterialPageRoute(
-          builder: (_) => QueueScreen(doctorId: args.doctorId),
+          builder: (_) => const RoleGuard(
+            allowedRoles: [UserRole.receptionist, UserRole.admin],
+            child: ReceptionistDashboard(),
+          ),
         );
       case AppRoutes.patientDetails:
         // For demonstration, extract patientId from arguments
@@ -41,7 +46,12 @@ class RouteGenerator {
           builder: (_) => PatientDetailsScreen(patientId: patientId),
         );
       case AppRoutes.doctorView:
-        return MaterialPageRoute(builder: (_) => const DoctorViewScreen());
+        return MaterialPageRoute(
+          builder: (_) => const RoleGuard(
+            allowedRoles: [UserRole.doctor, UserRole.admin],
+            child: DoctorViewScreen(),
+          ),
+        );
       case AppRoutes.settings:
         return MaterialPageRoute(builder: (_) => const SettingsScreen());
       case AppRoutes.profile:
