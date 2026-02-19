@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'app_routes.dart';
 
+import '../features/auth/screens/login_screen.dart';
+import '../features/dashboard/dashboard_screen.dart';
+import '../features/dashboard/widget_rebuild_demo_screen.dart';
+import '../features/auth/screens/register_screen.dart';
+import '../features/auth/screens/forgot_password_screen.dart';
+
 class QueueArguments {
   final String doctorId;
   QueueArguments(this.doctorId);
@@ -11,6 +17,10 @@ class RouteGenerator {
     switch (settings.name) {
       case AppRoutes.login:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
+      case AppRoutes.register:
+        return MaterialPageRoute(builder: (_) => const RegisterScreen());
+      case AppRoutes.forgotPassword:
+        return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
       case AppRoutes.dashboard:
         return MaterialPageRoute(builder: (_) => const DashboardScreen());
       case AppRoutes.queue:
@@ -44,8 +54,4 @@ class RouteGenerator {
   }
 }
 
-// Import screens for generator
-import 'app_routes.dart';
-import '../features/auth/screens/login_screen.dart';
-import '../features/dashboard/dashboard_screen.dart';
-import '../features/dashboard/widget_rebuild_demo_screen.dart';
+

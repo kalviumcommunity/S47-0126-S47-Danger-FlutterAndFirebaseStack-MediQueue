@@ -2,38 +2,44 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
-import '../../../routes/app_routes.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
+  final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+  final _confirmPasswordController = TextEditingController();
   bool _isLoading = false;
 
-  void _login() async {
+  void _signup() async {
     if (_formKey.currentState!.validate()) {
+      if (_passwordController.text != _confirmPasswordController.text) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Passwords do not match')),
+        );
+        return;
+      }
+      
       setState(() => _isLoading = true);
       try {
-        await context.read<AuthService>().signIn(
+        await context.read<AuthService>().signUp(
           email: _emailController.text,
           password: _passwordController.text,
         );
-        // On successful login, authStateChanges stream will trigger update in main/app
-        // or we can manually navigate if needed. 
-        // Typically, we listen to the stream in a wrapper widget.
-        // On successful login, authStateChanges stream will trigger update in AuthWrapper
-        // No manual navigation needed.
+        // Navigate or show success
+        if (mounted) {
+          Navigator.pop(context); // Go back to login
+        }
       } catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Login failed: $e')),
+            SnackBar(content: Text('Sign up failed: $e')),
           );
         }
       } finally {
@@ -45,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
+      appBar: AppBar(title: const Text('Sign Up')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -62,30 +68,26 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 16),
               TextFormField(
                 controller: _passwordController,
-                obscureText: true,
                 decoration: const InputDecoration(labelText: 'Password'),
+                obscureText: true,
                 validator: (value) => 
                   value != null && value.length >= 6 ? null : 'Password must be 6+ chars',
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () => Navigator.pushNamed(context, AppRoutes.forgotPassword),
-                  child: const Text('Forgot Password?'),
-                ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _confirmPasswordController,
+                decoration: const InputDecoration(labelText: 'Confirm Password'),
+                obscureText: true,
+                validator: (value) => 
+                  value != null && value.isNotEmpty ? null : 'Confirm your password',
               ),
               const SizedBox(height: 24),
-               _isLoading 
+              _isLoading 
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
-                    onPressed: _login,
-                    child: const Text('Login'),
+                    onPressed: _signup,
+                    child: const Text('Sign Up'),
                 ),
-              const SizedBox(height: 16),
-              TextButton(
-                onPressed: () => Navigator.pushNamed(context, AppRoutes.register),
-                child: const Text('Don\'t have an account? Sign Up'),
-              ),
             ],
           ),
         ),

@@ -3,6 +3,8 @@ import 'core/theme/app_theme.dart';
 import 'routes/app_routes.dart';
 import 'routes/route_generator.dart';
 
+import 'features/auth/auth_wrapper.dart';
+
 class MediQueueApp extends StatelessWidget {
   const MediQueueApp({Key? key}) : super(key: key);
 
@@ -12,7 +14,7 @@ class MediQueueApp extends StatelessWidget {
       title: 'MediQueue',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      initialRoute: AppRoutes.login,
+      home: const AuthWrapper(),
       onGenerateRoute: RouteGenerator.generateRoute,
       debugShowCheckedModeBanner: false,
     );

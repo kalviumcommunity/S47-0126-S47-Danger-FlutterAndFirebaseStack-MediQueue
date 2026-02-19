@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'app.dart';
 import 'services/firestore_service.dart';
+import 'features/auth/services/auth_service.dart';
 import 'services/sync_service.dart';
 import 'features/queue/queue_repository.dart';
 
@@ -19,6 +20,9 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        Provider<AuthService>(
+          create: (_) => AuthService(),
+        ),
         Provider<FirestoreService>(
           create: (_) => FirestoreService(),
         ),

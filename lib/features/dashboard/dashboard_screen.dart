@@ -5,6 +5,8 @@ import '../../shared/widgets/responsive_builder.dart';
 import '../../core/constants/app_spacing.dart';
 import '../../services/sync_service.dart';
 
+import '../auth/services/auth_service.dart';
+
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);
 
@@ -13,7 +15,17 @@ class DashboardScreen extends StatelessWidget {
     return Consumer<SyncService>(
       builder: (context, syncService, child) {
         return Scaffold(
-          appBar: AppBar(title: const Text('Dashboard Demo: Stateless & Stateful Widgets')),
+          appBar: AppBar(
+            title: const Text('Dashboard'),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.logout),
+                onPressed: () async {
+                  await context.read<AuthService>().signOut();
+                },
+              ),
+            ],
+          ),
           body: Column(
             children: [
               if (!syncService.isOnline)

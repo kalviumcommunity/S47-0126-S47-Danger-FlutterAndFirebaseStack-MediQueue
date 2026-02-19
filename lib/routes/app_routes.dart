@@ -1,7 +1,12 @@
-
+import 'package:flutter/material.dart';
+import '../features/auth/screens/login_screen.dart';
+import '../features/dashboard/dashboard_screen.dart';
+import '../features/dashboard/widget_rebuild_demo_screen.dart';
 // Route name definitions
 class AppRoutes {
   static const String login = '/';
+  static const String register = '/register';
+  static const String forgotPassword = '/forgot-password';
   static const String dashboard = '/dashboard';
   static const String queue = '/queue';
   static const String patientDetails = '/patient/:id';
@@ -11,12 +16,7 @@ class AppRoutes {
   static const String widgetDemo = '/widget-demo';
 }
 
-// Import screens (add stubs for missing ones)
-import '../features/auth/screens/login_screen.dart';
-import '../features/dashboard/dashboard_screen.dart';
-import '../features/dashboard/widget_rebuild_demo_screen.dart';
 // TODO: Implement these screens
-import 'package:flutter/material.dart';
 
 class QueueScreen extends StatelessWidget {
   final String doctorId;
