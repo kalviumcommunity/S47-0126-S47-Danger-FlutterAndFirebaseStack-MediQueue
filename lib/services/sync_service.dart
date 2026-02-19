@@ -1,9 +1,13 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import '../services/database_helper.dart';
+import '../models/sync_item.dart';
 
 class SyncService extends ChangeNotifier {
   final Connectivity _connectivity = Connectivity();
+  final DatabaseHelper _databaseHelper = DatabaseHelper();
   bool _isOnline = true;
   StreamSubscription<List<ConnectivityResult>>? _connectivitySubscription;
 
@@ -40,13 +44,58 @@ class SyncService extends ChangeNotifier {
     }
   }
 
+  /// Queues an action to be executed. If online, executes immediately.
+  /// If offline, saves to local database for later sync.
+  Future<void> queueAction(String action, Map<String, dynamic> data) async {
+    final syncItem = SyncItem(
+      id: null,
+      action: action,
+      data: jsonEncode(data),
+      timestamp: DateTime.now().toIso8601String(),
+    );
+
+    if (_isOnline) {
+      await _executeAction(syncItem);
+    } else {
+      await _databaseHelper.insertSyncItem(syncItem);
+      debugPrint('Queued offline action: $action');
+    }
+  }
+
   Future<void> _performSync() async {
-    // Firestore handles most sync automatically.
-    // This method is for any manual sync logic if needed,
-    // e.g., syncing local preferences or other non-firestore data.
     debugPrint('Performing sync...');
-    await Future.delayed(const Duration(seconds: 1)); // Simulate sync
+    final pendingItems = await _databaseHelper.getSyncItems();
+
+    if (pendingItems.isEmpty) {
+      debugPrint('No pending items to sync.');
+      return;
+    }
+
+    for (var item in pendingItems) {
+      try {
+        await _executeAction(item);
+        if (item.id != null) {
+          await _databaseHelper.deleteSyncItem(item.id!);
+        }
+      } catch (e) {
+        debugPrint('Failed to sync item ${item.id}: $e');
+        // Optionally implement retry logic or move to a failed queue
+      }
+    }
     debugPrint('Sync complete.');
+  }
+
+  Future<void> _executeAction(SyncItem item) async {
+    // Simulate API call or Firestore interaction based on 'action'
+    debugPrint('Executing action: ${item.action} with data: ${item.data}');
+    await Future.delayed(const Duration(seconds: 1)); // Simulate network request
+
+    // Here you would check item.action and call appropriate service methods
+    // switch (item.action) {
+    //   case 'update_profile':
+    //     await firestoreService.updateProfile(...);
+    //     break;
+    // }
   }
 
   @override

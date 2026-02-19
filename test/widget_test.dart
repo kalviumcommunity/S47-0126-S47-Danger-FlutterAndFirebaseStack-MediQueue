@@ -8,12 +8,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:mediqueue/main.dart';
+import 'package:mediqueue/app.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    // Note: This test might still fail due to Firebase initialization requirements,
+    // but we are fixing the compilation error here.
+    await tester.pumpWidget(const MediQueueApp());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
