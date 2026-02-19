@@ -1,4 +1,5 @@
-import '../core/db/database_helper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../services/firestore_service.dart';
 
 class QueueEntry {
   final String id;
@@ -19,18 +20,22 @@ class QueueEntry {
     required this.updatedAt,
   });
 
-  factory QueueEntry.fromJson(Map<String, dynamic> json) => QueueEntry(
-    id: json['id'] as String,
-    patientId: json['patient_id'] as String,
-    token: json['token'] as String,
-    doctorId: json['doctor_id'] as String,
-    status: json['status'] as String,
-    createdAt: json['created_at'] as String,
-    updatedAt: json['updated_at'] as String,
+  factory QueueEntry.fromJson(Map<String, dynamic> json, String id) => QueueEntry(
+    id: id,
+    patientId: json['patient_id'] as String? ?? '',
+    token: json['token'] as String? ?? '',
+    doctorId: json['doctor_id'] as String? ?? '',
+    status: json['status'] as String? ?? 'waiting',
+    createdAt: json['created_at'] as String? ?? '',
+    updatedAt: json['updated_at'] as String? ?? '',
   );
 
+  factory QueueEntry.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> snapshot) {
+    final data = snapshot.data()!;
+    return QueueEntry.fromJson(data, snapshot.id);
+  }
+
   Map<String, dynamic> toJson() => {
-    'id': id,
     'patient_id': patientId,
     'token': token,
     'doctor_id': doctorId,
@@ -41,32 +46,35 @@ class QueueEntry {
 }
 
 class QueueRepository {
-  final db = DatabaseHelper.instance.database;
+  final FirestoreService _firestoreService = FirestoreService();
+  final String _collection = 'queue';
 
-  Future<String> insert(QueueEntry entry) async {
-    final database = await db;
-    await database.insert('queue', entry.toJson());
-    return entry.id;
+  // Add a new entry to the queue
+  Future<String> addQueueEntry(QueueEntry entry) async {
+    final docRef = await FirebaseFirestore.instance.collection(_collection).add(entry.toJson());
+    return docRef.id;
   }
 
+  // Get a stream of the queue for real-time updates
+  Stream<List<QueueEntry>> getQueueStream() {
+    return _firestoreService.getCollectionStream(_collection).map((snapshot) {
+      return snapshot.docs.map((doc) => QueueEntry.fromSnapshot(doc as DocumentSnapshot<Map<String, dynamic>>)).toList();
+    });
+  }
+
+  // Update an existing entry
+  Future<void> updateQueueEntry(QueueEntry entry) async {
+    await _firestoreService.updateDocument(_collection, entry.id, entry.toJson());
+  }
+
+  // Delete an entry
+  Future<void> deleteQueueEntry(String id) async {
+    await FirebaseFirestore.instance.collection(_collection).doc(id).delete();
+  }
+
+  // Get all entries once (offline compatible if caught in cache)
   Future<List<QueueEntry>> getAll() async {
-    final database = await db;
-    final result = await database.query('queue', orderBy: 'created_at ASC');
-    return result.map((json) => QueueEntry.fromJson(json)).toList();
-  }
-
-  Future<int> update(QueueEntry entry) async {
-    final database = await db;
-    return database.update(
-      'queue',
-      entry.toJson(),
-      where: 'id = ?',
-      whereArgs: [entry.id],
-    );
-  }
-
-  Future<int> delete(String id) async {
-    final database = await db;
-    return database.delete('queue', where: 'id = ?', whereArgs: [id]);
+    final snapshot = await FirebaseFirestore.instance.collection(_collection).get();
+    return snapshot.docs.map((doc) => QueueEntry.fromSnapshot(doc)).toList();
   }
 }
