@@ -59,6 +59,9 @@ class DashboardScreen extends StatelessWidget {
                     if (userProvider.isReceptionist || userProvider.isAdmin)
                       _buildReceptionistSection(context),
 
+                    if (userProvider.isPatient || userProvider.isAdmin)
+                      _buildPatientSection(context),
+
                     const SizedBox(height: AppSpacing.md),
                     
                     // Responsive header with logo and menu
@@ -210,6 +213,21 @@ class DashboardScreen extends StatelessWidget {
         onTap: () {
            // Navigate to Queue Management
            Navigator.pushNamed(context, AppRoutes.queue, arguments: QueueArguments('doc123')); // Mock doctor ID
+        },
+      ),
+    );
+  }
+
+  Widget _buildPatientSection(BuildContext context) {
+    return Card(
+      color: Colors.orange[50], // Different color for distinction
+      child: ListTile(
+        leading: const Icon(Icons.calendar_today, color: Colors.orange),
+        title: const Text('Book Appointment'),
+        subtitle: const Text('Schedule a consultation'),
+        trailing: const Icon(Icons.arrow_forward_ios),
+        onTap: () {
+          Navigator.pushNamed(context, AppRoutes.bookAppointment);
         },
       ),
     );

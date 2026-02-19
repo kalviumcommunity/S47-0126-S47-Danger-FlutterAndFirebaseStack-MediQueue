@@ -11,6 +11,7 @@ import '../features/auth/widgets/role_guard.dart';
 import '../features/auth/models/user_model.dart';
 
 import '../features/dashboard/receptionist_dashboard.dart';
+import '../features/appointments/screens/appointment_booking_screen.dart';
 
 class QueueArguments {
   final String doctorId;
@@ -58,6 +59,13 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const ProfileScreen());
       case AppRoutes.widgetDemo:
         return MaterialPageRoute(builder: (_) => const WidgetRebuildDemoScreen());
+      case AppRoutes.bookAppointment:
+        return MaterialPageRoute(
+          builder: (_) => const RoleGuard(
+            allowedRoles: [UserRole.patient, UserRole.admin],
+            child: AppointmentBookingScreen(),
+          ),
+        );
       default:
         return MaterialPageRoute(builder: (_) => const NotFoundScreen());
     }
