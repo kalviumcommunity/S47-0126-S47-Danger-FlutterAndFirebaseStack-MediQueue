@@ -28,7 +28,8 @@ class FirestoreService {
   }
 
   // Generic method to update data
-  Future<void> updateDocument(String collection, String docId, Map<String, dynamic> data) async {
+  Future<void> updateDocument(
+      String collection, String docId, Map<String, dynamic> data) async {
     try {
       await _db.collection(collection).doc(docId).update(data);
     } catch (e) {
@@ -44,7 +45,11 @@ class FirestoreService {
 
   // Get data once (Offline first strategy usually relies on streams for UI, but sometimes we need a single fetch)
   // Source.cache will try to fetch from cache first.
-  Future<DocumentSnapshot> getDocument(String collection, String docId, {Source source = Source.defaultSource}) async {
-      return await _db.collection(collection).doc(docId).get(GetOptions(source: source));
+  Future<DocumentSnapshot> getDocument(String collection, String docId,
+      {Source source = Source.defaultSource}) async {
+    return await _db
+        .collection(collection)
+        .doc(docId)
+        .get(GetOptions(source: source));
   }
 }

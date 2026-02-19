@@ -101,7 +101,8 @@ class _DoctorViewScreenState extends State<DoctorViewScreen> {
               children: [
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: _currentPatient == null ? _fetchNextPatient : null,
+                    onPressed:
+                        _currentPatient == null ? _fetchNextPatient : null,
                     child: const Text('Call Next Patient'),
                   ),
                 ),
@@ -127,7 +128,8 @@ class _DoctorViewScreenState extends State<DoctorViewScreen> {
         child: Padding(
           padding: const EdgeInsets.all(32),
           child: Center(
-            child: Text('No patient in consultation', style: TextStyle(fontSize: 20, color: Colors.grey[700])),
+            child: Text('No patient in consultation',
+                style: TextStyle(fontSize: 20, color: Colors.grey[700])),
           ),
         ),
       );
@@ -139,17 +141,22 @@ class _DoctorViewScreenState extends State<DoctorViewScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Current Patient', style: TextStyle(fontSize: 16, color: Colors.blue[700])),
+            Text('Current Patient',
+                style: TextStyle(fontSize: 16, color: Colors.blue[700])),
             const SizedBox(height: 8),
-            Text('${_currentPatient!.name} (${_currentPatient!.token})', style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+            Text('${_currentPatient!.name} (${_currentPatient!.token})',
+                style:
+                    const TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
-            Text('Phone: ${_currentPatient!.phone}', style: const TextStyle(fontSize: 18)),
+            Text('Phone: ${_currentPatient!.phone}',
+                style: const TextStyle(fontSize: 18)),
             const SizedBox(height: 16),
             Row(
               children: [
                 const Icon(Icons.timer, color: Colors.blue),
                 const SizedBox(width: 8),
-                Text(_formatDuration(_seconds), style: const TextStyle(fontSize: 18)),
+                Text(_formatDuration(_seconds),
+                    style: const TextStyle(fontSize: 18)),
               ],
             ),
           ],
@@ -164,7 +171,9 @@ class _DoctorViewScreenState extends State<DoctorViewScreen> {
         color: Colors.grey[100],
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Center(child: Text('No next patient in queue', style: TextStyle(color: Colors.grey[600]))),
+          child: Center(
+              child: Text('No next patient in queue',
+                  style: TextStyle(color: Colors.grey[600]))),
         ),
       );
     }
@@ -176,7 +185,8 @@ class _DoctorViewScreenState extends State<DoctorViewScreen> {
           children: [
             const Icon(Icons.person, color: Colors.green),
             const SizedBox(width: 12),
-            Text('${_nextPatient!.name} (${_nextPatient!.token})', style: const TextStyle(fontSize: 20)),
+            Text('${_nextPatient!.name} (${_nextPatient!.token})',
+                style: const TextStyle(fontSize: 20)),
           ],
         ),
       ),

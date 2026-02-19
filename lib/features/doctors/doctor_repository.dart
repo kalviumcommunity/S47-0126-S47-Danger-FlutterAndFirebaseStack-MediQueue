@@ -14,18 +14,18 @@ class DoctorModel {
   });
 
   factory DoctorModel.fromJson(Map<String, dynamic> json) => DoctorModel(
-    id: json['id'] as String,
-    name: json['name'] as String,
-    specialization: json['specialization'] as String?,
-    isAvailable: (json['is_available'] as int) == 1,
-  );
+        id: json['id'] as String,
+        name: json['name'] as String,
+        specialization: json['specialization'] as String?,
+        isAvailable: (json['is_available'] as int) == 1,
+      );
 
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'name': name,
-    'specialization': specialization,
-    'is_available': isAvailable ? 1 : 0,
-  };
+        'id': id,
+        'name': name,
+        'specialization': specialization,
+        'is_available': isAvailable ? 1 : 0,
+      };
 }
 
 class DoctorRepository {

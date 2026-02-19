@@ -16,20 +16,20 @@ class PatientModel {
   });
 
   factory PatientModel.fromJson(Map<String, dynamic> json) => PatientModel(
-    id: json['id'] as String,
-    name: json['name'] as String,
-    phone: json['phone'] as String,
-    email: json['email'] as String?,
-    createdAt: json['created_at'] as String,
-  );
+        id: json['id'] as String,
+        name: json['name'] as String,
+        phone: json['phone'] as String,
+        email: json['email'] as String?,
+        createdAt: json['created_at'] as String,
+      );
 
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'name': name,
-    'phone': phone,
-    'email': email,
-    'created_at': createdAt,
-  };
+        'id': id,
+        'name': name,
+        'phone': phone,
+        'email': email,
+        'created_at': createdAt,
+      };
 }
 
 class PatientRepository {

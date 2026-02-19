@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/appointment_model.dart';
 import '../../auth/models/user_model.dart';
@@ -18,13 +17,14 @@ class AppointmentService {
       // Check if the doctor already has an appointment at this time
       final querySnapshot = await _appointments
           .where('doctorId', isEqualTo: appointment.doctorId)
-          .where('dateTime', isEqualTo: Timestamp.fromDate(appointment.dateTime))
+          .where('dateTime',
+              isEqualTo: Timestamp.fromDate(appointment.dateTime))
           .get();
 
       if (querySnapshot.docs.isNotEmpty) {
         throw Exception('This time slot is already booked.');
       }
-      
+
       await _appointments.doc(appointment.id).set(appointment.toMap());
     } catch (e) {
       throw Exception('Failed to book appointment: $e');
@@ -35,11 +35,14 @@ class AppointmentService {
   Future<List<UserModel>> getDoctors() async {
     try {
       final querySnapshot = await _users
-          .where('role', isEqualTo: 'doctor') // Stored as string in Firestore based on UserModel.toMap
+          .where('role',
+              isEqualTo:
+                  'doctor') // Stored as string in Firestore based on UserModel.toMap
           .get();
 
       return querySnapshot.docs
-          .map((doc) => UserModel.fromMap(doc.data() as Map<String, dynamic>, doc.id))
+          .map((doc) =>
+              UserModel.fromMap(doc.data() as Map<String, dynamic>, doc.id))
           .toList();
     } catch (e) {
       throw Exception('Failed to load doctors: $e');
@@ -48,7 +51,8 @@ class AppointmentService {
 
   // Get available slots (Mocked logic for now, could be enhanced)
   // Returns a list of available DateTimes for a given day
-  Future<List<DateTime>> getAvailableSlots(String doctorId, DateTime date) async {
+  Future<List<DateTime>> getAvailableSlots(
+      String doctorId, DateTime date) async {
     // 1. Define working hours (e.g., 9 AM to 5 PM)
     final startHour = 9;
     final endHour = 17;
@@ -66,7 +70,8 @@ class AppointmentService {
 
     final querySnapshot = await _appointments
         .where('doctorId', isEqualTo: doctorId)
-        .where('dateTime', isGreaterThanOrEqualTo: Timestamp.fromDate(startOfDay))
+        .where('dateTime',
+            isGreaterThanOrEqualTo: Timestamp.fromDate(startOfDay))
         .where('dateTime', isLessThan: Timestamp.fromDate(endOfDay))
         .get();
 

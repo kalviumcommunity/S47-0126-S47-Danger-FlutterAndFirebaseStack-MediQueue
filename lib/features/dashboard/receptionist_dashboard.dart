@@ -42,7 +42,8 @@ class _ReceptionistDashboardState extends State<ReceptionistDashboard> {
         title: const Text('Queue Dashboard'),
         actions: [
           IconButton(icon: const Icon(Icons.refresh), onPressed: _refreshQueue),
-          IconButton(icon: const Icon(Icons.filter_list), onPressed: _showFilters),
+          IconButton(
+              icon: const Icon(Icons.filter_list), onPressed: _showFilters),
         ],
       ),
       body: Column(
@@ -89,8 +90,8 @@ class _ReceptionistDashboardState extends State<ReceptionistDashboard> {
   Widget _buildQueueList() {
     final filtered = _queue.where((p) {
       final matchesSearch = _search.isEmpty ||
-        p.name.toLowerCase().contains(_search.toLowerCase()) ||
-        p.token.toLowerCase().contains(_search.toLowerCase());
+          p.name.toLowerCase().contains(_search.toLowerCase()) ||
+          p.token.toLowerCase().contains(_search.toLowerCase());
       final matchesFilter = _filterStatus == null || p.status == _filterStatus;
       return matchesSearch && matchesFilter;
     }).toList();
@@ -121,19 +122,31 @@ class _ReceptionistDashboardState extends State<ReceptionistDashboard> {
         children: [
           ListTile(
             title: const Text('All'),
-            onTap: () => setState(() { _filterStatus = null; Navigator.pop(context); }),
+            onTap: () => setState(() {
+              _filterStatus = null;
+              Navigator.pop(context);
+            }),
           ),
           ListTile(
             title: const Text('Waiting'),
-            onTap: () => setState(() { _filterStatus = 'waiting'; Navigator.pop(context); }),
+            onTap: () => setState(() {
+              _filterStatus = 'waiting';
+              Navigator.pop(context);
+            }),
           ),
           ListTile(
             title: const Text('In Progress'),
-            onTap: () => setState(() { _filterStatus = 'in-progress'; Navigator.pop(context); }),
+            onTap: () => setState(() {
+              _filterStatus = 'in-progress';
+              Navigator.pop(context);
+            }),
           ),
           ListTile(
             title: const Text('Completed'),
-            onTap: () => setState(() { _filterStatus = 'completed'; Navigator.pop(context); }),
+            onTap: () => setState(() {
+              _filterStatus = 'completed';
+              Navigator.pop(context);
+            }),
           ),
         ],
       ),
@@ -160,8 +173,13 @@ class _ReceptionistDashboardState extends State<ReceptionistDashboard> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text('Patient Details'),
-        content: Text('Name: ${patient.name}\nToken: ${patient.token}\nStatus: ${patient.status}\nPhone: ${patient.phone}'),
-        actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text('Close'))],
+        content: Text(
+            'Name: ${patient.name}\nToken: ${patient.token}\nStatus: ${patient.status}\nPhone: ${patient.phone}'),
+        actions: [
+          TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Close'))
+        ],
       ),
     );
   }

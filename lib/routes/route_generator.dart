@@ -58,7 +58,8 @@ class RouteGenerator {
       case AppRoutes.profile:
         return MaterialPageRoute(builder: (_) => const ProfileScreen());
       case AppRoutes.widgetDemo:
-        return MaterialPageRoute(builder: (_) => const WidgetRebuildDemoScreen());
+        return MaterialPageRoute(
+            builder: (_) => const WidgetRebuildDemoScreen());
       case AppRoutes.bookAppointment:
         return MaterialPageRoute(
           builder: (_) => const RoleGuard(
@@ -71,5 +72,3 @@ class RouteGenerator {
     }
   }
 }
-
-

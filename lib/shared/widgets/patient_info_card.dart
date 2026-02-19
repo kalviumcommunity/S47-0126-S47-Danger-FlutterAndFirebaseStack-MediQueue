@@ -5,7 +5,9 @@ class PatientInfoCard extends StatelessWidget {
   final String name;
   final String phone;
   final String token;
-  const PatientInfoCard({Key? key, required this.name, required this.phone, required this.token}) : super(key: key);
+  const PatientInfoCard(
+      {Key? key, required this.name, required this.phone, required this.token})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

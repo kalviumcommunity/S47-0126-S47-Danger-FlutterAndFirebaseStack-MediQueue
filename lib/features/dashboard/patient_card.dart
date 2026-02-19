@@ -30,8 +30,10 @@ class PatientCard extends StatelessWidget {
               onSelected: (status) => onStatusChange?.call(status),
               itemBuilder: (context) => [
                 const PopupMenuItem(value: 'waiting', child: Text('Waiting')),
-                const PopupMenuItem(value: 'in-progress', child: Text('In Progress')),
-                const PopupMenuItem(value: 'completed', child: Text('Completed')),
+                const PopupMenuItem(
+                    value: 'in-progress', child: Text('In Progress')),
+                const PopupMenuItem(
+                    value: 'completed', child: Text('Completed')),
               ],
               icon: const Icon(Icons.more_vert),
             ),

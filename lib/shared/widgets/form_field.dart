@@ -5,7 +5,9 @@ class FormFieldWidget extends StatefulWidget {
   final String label;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
-  const FormFieldWidget({Key? key, required this.label, this.validator, this.onChanged}) : super(key: key);
+  const FormFieldWidget(
+      {Key? key, required this.label, this.validator, this.onChanged})
+      : super(key: key);
 
   @override
   State<FormFieldWidget> createState() => _FormFieldWidgetState();

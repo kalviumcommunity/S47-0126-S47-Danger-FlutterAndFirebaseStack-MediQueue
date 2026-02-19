@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class NavigationService {
-  static void navigateTo(BuildContext context, String route, {Object? arguments}) {
+  static void navigateTo(BuildContext context, String route,
+      {Object? arguments}) {
     Navigator.pushNamed(context, route, arguments: arguments);
   }
 
-  static void navigateAndReplace(BuildContext context, String route, {Object? arguments}) {
+  static void navigateAndReplace(BuildContext context, String route,
+      {Object? arguments}) {
     Navigator.pushReplacementNamed(context, route, arguments: arguments);
   }
 

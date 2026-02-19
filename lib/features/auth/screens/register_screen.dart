@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
@@ -25,13 +24,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
         );
         return;
       }
-      
+
       setState(() => _isLoading = true);
       try {
         await context.read<AuthService>().signUp(
-          email: _emailController.text,
-          password: _passwordController.text,
-        );
+              email: _emailController.text,
+              password: _passwordController.text,
+            );
         // Navigate or show success
         if (mounted) {
           Navigator.pop(context); // Go back to login
@@ -62,32 +61,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
               TextFormField(
                 controller: _emailController,
                 decoration: const InputDecoration(labelText: 'Email'),
-                validator: (value) => 
-                  value != null && value.contains('@') ? null : 'Enter valid email',
+                validator: (value) => value != null && value.contains('@')
+                    ? null
+                    : 'Enter valid email',
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _passwordController,
                 decoration: const InputDecoration(labelText: 'Password'),
                 obscureText: true,
-                validator: (value) => 
-                  value != null && value.length >= 6 ? null : 'Password must be 6+ chars',
+                validator: (value) => value != null && value.length >= 6
+                    ? null
+                    : 'Password must be 6+ chars',
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _confirmPasswordController,
-                decoration: const InputDecoration(labelText: 'Confirm Password'),
+                decoration:
+                    const InputDecoration(labelText: 'Confirm Password'),
                 obscureText: true,
-                validator: (value) => 
-                  value != null && value.isNotEmpty ? null : 'Confirm your password',
+                validator: (value) => value != null && value.isNotEmpty
+                    ? null
+                    : 'Confirm your password',
               ),
               const SizedBox(height: 24),
-              _isLoading 
-                ? const CircularProgressIndicator()
-                : ElevatedButton(
-                    onPressed: _signup,
-                    child: const Text('Sign Up'),
-                ),
+              _isLoading
+                  ? const CircularProgressIndicator()
+                  : ElevatedButton(
+                      onPressed: _signup,
+                      child: const Text('Sign Up'),
+                    ),
             ],
           ),
         ),

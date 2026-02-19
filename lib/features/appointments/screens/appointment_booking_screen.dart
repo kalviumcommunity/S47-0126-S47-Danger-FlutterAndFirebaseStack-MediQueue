@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../auth/models/user_model.dart';
@@ -11,7 +10,8 @@ class AppointmentBookingScreen extends StatefulWidget {
   const AppointmentBookingScreen({Key? key}) : super(key: key);
 
   @override
-  State<AppointmentBookingScreen> createState() => _AppointmentBookingScreenState();
+  State<AppointmentBookingScreen> createState() =>
+      _AppointmentBookingScreenState();
 }
 
 class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
@@ -57,8 +57,8 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
 
     setState(() => _isLoading = true);
     try {
-      final slots = await _service.getAvailableSlots(
-          _selectedDoctor!.uid, _selectedDate);
+      final slots =
+          await _service.getAvailableSlots(_selectedDoctor!.uid, _selectedDate);
       setState(() {
         _availableSlots = slots;
         _selectedTimeSlot = null; // Reset slot when fetching new ones
@@ -76,7 +76,8 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
     if (!_formKey.currentState!.validate()) return;
     if (_selectedDoctor == null || _selectedTimeSlot == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please select a doctor and a time slot.')),
+        const SnackBar(
+            content: Text('Please select a doctor and a time slot.')),
       );
       return;
     }
@@ -85,7 +86,8 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
 
     try {
       final userProvider = Provider.of<UserProvider>(context, listen: false);
-      final patientId = userProvider.user?.uid ?? 'guest'; // Should enforce login
+      final patientId =
+          userProvider.user?.uid ?? 'guest'; // Should enforce login
 
       // Generate a unique ID (could use uuid package or firestore auto-id)
       // Since I didn't verify uuid package, I'll use simple datetime based ID + random or let firestore generate.
@@ -150,7 +152,8 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                   children: [
                     // 1. Select Doctor
                     const Text('Select Doctor',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 8),
                     DropdownButtonFormField<UserModel>(
                       value: _selectedDoctor,
@@ -168,13 +171,15 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                           });
                         }
                       },
-                      decoration: const InputDecoration(border: OutlineInputBorder()),
+                      decoration:
+                          const InputDecoration(border: OutlineInputBorder()),
                     ),
                     const SizedBox(height: 24),
 
                     // 2. Select Date
                     const Text('Select Date',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold)),
                     CalendarDatePicker(
                       initialDate: _selectedDate,
                       firstDate: DateTime.now(),
@@ -190,14 +195,16 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
 
                     // 3. Select Time Slot
                     const Text('Available Slots',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 8),
                     _isLoading
                         ? const Center(child: CircularProgressIndicator())
                         : _availableSlots.isEmpty
                             ? const Padding(
                                 padding: EdgeInsets.all(8.0),
-                                child: Text('No slots available for this date.'),
+                                child:
+                                    Text('No slots available for this date.'),
                               )
                             : Wrap(
                                 spacing: 8.0,
@@ -210,14 +217,15 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                                     selected: isSelected,
                                     onSelected: (selected) {
                                       setState(() {
-                                        _selectedTimeSlot = selected ? slot : null;
+                                        _selectedTimeSlot =
+                                            selected ? slot : null;
                                       });
                                     },
                                   );
                                 }).toList(),
                               ),
                     const SizedBox(height: 24),
-                    
+
                     // 4. Reason
                     TextFormField(
                       decoration: const InputDecoration(
@@ -235,7 +243,8 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                       child: ElevatedButton(
                         onPressed: _isLoading ? null : _bookAppointment,
                         child: _isLoading
-                            ? const CircularProgressIndicator(color: Colors.white)
+                            ? const CircularProgressIndicator(
+                                color: Colors.white)
                             : const Text('Confirm Appointment'),
                       ),
                     ),

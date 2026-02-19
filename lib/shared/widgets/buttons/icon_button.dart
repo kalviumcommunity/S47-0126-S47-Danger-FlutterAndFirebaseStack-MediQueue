@@ -5,7 +5,9 @@ class AppIconButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final String? tooltip;
 
-  const AppIconButton({Key? key, required this.icon, this.onPressed, this.tooltip}) : super(key: key);
+  const AppIconButton(
+      {Key? key, required this.icon, this.onPressed, this.tooltip})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

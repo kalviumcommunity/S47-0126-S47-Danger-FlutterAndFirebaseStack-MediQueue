@@ -4,7 +4,12 @@ class DoctorCard extends StatelessWidget {
   final String name;
   final String photoUrl;
   final String specialty;
-  const DoctorCard({Key? key, required this.name, required this.photoUrl, required this.specialty}) : super(key: key);
+  const DoctorCard(
+      {Key? key,
+      required this.name,
+      required this.photoUrl,
+      required this.specialty})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +23,9 @@ class DoctorCard extends StatelessWidget {
             onBackgroundImageError: (_, __) {},
           ),
           const SizedBox(height: 8),
-          Text(name, style: Theme.of(context).textTheme.subtitle1, textAlign: TextAlign.center),
+          Text(name,
+              style: Theme.of(context).textTheme.subtitle1,
+              textAlign: TextAlign.center),
           Text(specialty, style: Theme.of(context).textTheme.caption),
         ],
       ),

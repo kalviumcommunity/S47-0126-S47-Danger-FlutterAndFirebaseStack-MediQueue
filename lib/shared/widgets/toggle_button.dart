@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 class ToggleButton extends StatefulWidget {
   final List<String> options;
   final ValueChanged<int> onChanged;
-  const ToggleButton({Key? key, required this.options, required this.onChanged}) : super(key: key);
+  const ToggleButton({Key? key, required this.options, required this.onChanged})
+      : super(key: key);
 
   @override
   State<ToggleButton> createState() => _ToggleButtonState();

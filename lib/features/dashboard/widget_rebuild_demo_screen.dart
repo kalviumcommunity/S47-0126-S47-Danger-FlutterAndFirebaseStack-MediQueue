@@ -6,7 +6,8 @@ class WidgetRebuildDemoScreen extends StatefulWidget {
   const WidgetRebuildDemoScreen({Key? key}) : super(key: key);
 
   @override
-  State<WidgetRebuildDemoScreen> createState() => _WidgetRebuildDemoScreenState();
+  State<WidgetRebuildDemoScreen> createState() =>
+      _WidgetRebuildDemoScreenState();
 }
 
 class _WidgetRebuildDemoScreenState extends State<WidgetRebuildDemoScreen> {
@@ -108,7 +109,8 @@ class _WidgetRebuildDemoScreenState extends State<WidgetRebuildDemoScreen> {
                   ),
                   Text(
                     _input,
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -155,7 +157,8 @@ class _ColorDot extends StatelessWidget {
   final Color color;
   final bool selected;
   final VoidCallback onTap;
-  const _ColorDot({required this.color, required this.selected, required this.onTap});
+  const _ColorDot(
+      {required this.color, required this.selected, required this.onTap});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

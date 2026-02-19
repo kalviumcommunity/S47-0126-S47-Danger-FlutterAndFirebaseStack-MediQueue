@@ -5,7 +5,8 @@ class SearchBar extends StatelessWidget {
   final String? hint;
   final ValueChanged<String>? onChanged;
 
-  const SearchBar({Key? key, this.controller, this.hint, this.onChanged}) : super(key: key);
+  const SearchBar({Key? key, this.controller, this.hint, this.onChanged})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

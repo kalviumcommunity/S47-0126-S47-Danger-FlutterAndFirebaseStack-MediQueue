@@ -11,6 +11,7 @@ class UserModel {
   final UserRole role; // Changed from String to UserRole
   final String clinicId;
   final String email;
+  final String? fcmToken;
 
   UserModel({
     required this.uid,
@@ -18,6 +19,7 @@ class UserModel {
     required this.role,
     required this.clinicId,
     required this.email,
+    this.fcmToken,
   });
 
   bool get isAdmin => role == UserRole.admin;
@@ -32,6 +34,7 @@ class UserModel {
       role: _parseRole(map['role']),
       clinicId: map['clinicId'] ?? '',
       email: map['email'] ?? '',
+      fcmToken: map['fcmToken'],
     );
   }
 
@@ -41,6 +44,7 @@ class UserModel {
       'role': role.name, // saves 'admin', 'doctor', etc.
       'clinicId': clinicId,
       'email': email,
+      'fcmToken': fcmToken,
     };
   }
 

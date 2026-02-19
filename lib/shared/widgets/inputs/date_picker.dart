@@ -5,7 +5,9 @@ class DatePickerField extends StatelessWidget {
   final DateTime? initialDate;
   final ValueChanged<DateTime>? onDateSelected;
 
-  const DatePickerField({Key? key, required this.label, this.initialDate, this.onDateSelected}) : super(key: key);
+  const DatePickerField(
+      {Key? key, required this.label, this.initialDate, this.onDateSelected})
+      : super(key: key);
 
   Future<void> _pickDate(BuildContext context) async {
     final now = DateTime.now();
@@ -30,7 +32,9 @@ class DatePickerField extends StatelessWidget {
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         ),
         child: Text(
-          initialDate != null ? '${initialDate!.toLocal()}'.split(' ')[0] : 'Select date',
+          initialDate != null
+              ? '${initialDate!.toLocal()}'.split(' ')[0]
+              : 'Select date',
           style: Theme.of(context).textTheme.bodyMedium,
         ),
       ),
