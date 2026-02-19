@@ -4,7 +4,8 @@ class TokenDisplay extends StatelessWidget {
   final String token;
   final bool isLarge;
 
-  const TokenDisplay({Key? key, required this.token, this.isLarge = false}) : super(key: key);
+  const TokenDisplay({Key? key, required this.token, this.isLarge = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

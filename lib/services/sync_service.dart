@@ -11,7 +11,8 @@ class SyncService extends ChangeNotifier {
 
   SyncService() {
     _initConnectivity();
-    _connectivitySubscription = _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    _connectivitySubscription =
+        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
   }
 
   Future<void> _initConnectivity() async {
@@ -26,12 +27,13 @@ class SyncService extends ChangeNotifier {
   void _updateConnectionStatus(List<ConnectivityResult> result) {
     // In connectivity_plus > 5.0.0, the result is a List<ConnectivityResult>
     bool isConnected = result.any((r) => r != ConnectivityResult.none);
-    
+
     if (_isOnline != isConnected) {
       _isOnline = isConnected;
       notifyListeners();
-      debugPrint('Connection status changed: ${_isOnline ? "Online" : "Offline"}');
-      
+      debugPrint(
+          'Connection status changed: ${_isOnline ? "Online" : "Offline"}');
+
       if (_isOnline) {
         _performSync();
       }

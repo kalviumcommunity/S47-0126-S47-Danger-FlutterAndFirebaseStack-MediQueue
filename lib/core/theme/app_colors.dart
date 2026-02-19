@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   // Primary Colors
-  static const Color primary = Color(0xFF2196F3);      // Medical Blue
+  static const Color primary = Color(0xFF2196F3); // Medical Blue
   static const Color primaryDark = Color(0xFF1976D2);
   static const Color primaryLight = Color(0xFF64B5F6);
 
   // Secondary Colors
-  static const Color secondary = Color(0xFF4CAF50);    // Healthcare Green
+  static const Color secondary = Color(0xFF4CAF50); // Healthcare Green
   static const Color secondaryDark = Color(0xFF388E3C);
   static const Color secondaryLight = Color(0xFF81C784);
 

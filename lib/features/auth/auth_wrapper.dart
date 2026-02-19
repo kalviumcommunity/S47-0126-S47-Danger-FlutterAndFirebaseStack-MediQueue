@@ -12,7 +12,7 @@ class AuthWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
-    
+
     return StreamBuilder<User?>(
       stream: authService.authStateChanges,
       builder: (context, snapshot) {
@@ -37,35 +37,35 @@ class AuthWrapper extends StatelessWidget {
                   ),
                 );
               }
-              
+
               if (userProvider.hasError) {
-                  return Scaffold(
-                    body: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text("Error loading profile"),
-                          const SizedBox(height: 16),
-                          ElevatedButton(
-                            onPressed: () {
-                              userProvider.refreshUser();
-                            },
-                            child: const Text("Retry"),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              authService.signOut();
-                            },
-                            child: const Text("Sign Out"),
-                          )
-                        ],
-                      ),
+                return Scaffold(
+                  body: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text("Error loading profile"),
+                        const SizedBox(height: 16),
+                        ElevatedButton(
+                          onPressed: () {
+                            userProvider.refreshUser();
+                          },
+                          child: const Text("Retry"),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            authService.signOut();
+                          },
+                          child: const Text("Sign Out"),
+                        )
+                      ],
                     ),
-                  );
+                  ),
+                );
               }
 
               if (userProvider.user != null) {
-                 return const DashboardScreen();
+                return const DashboardScreen();
               }
 
               // Fallback loading state for brief transition
@@ -77,7 +77,7 @@ class AuthWrapper extends StatelessWidget {
             },
           );
         }
-        
+
         return const LoginScreen();
       },
     );

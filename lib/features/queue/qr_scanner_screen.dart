@@ -9,10 +9,10 @@ class PatientData {
   final String phone;
   PatientData({required this.id, required this.name, required this.phone});
   factory PatientData.fromJson(Map<String, dynamic> json) => PatientData(
-    id: json['id'] ?? '',
-    name: json['name'] ?? '',
-    phone: json['phone'] ?? '',
-  );
+        id: json['id'] ?? '',
+        name: json['name'] ?? '',
+        phone: json['phone'] ?? '',
+      );
 }
 
 class QRScannerScreen extends StatefulWidget {
@@ -46,7 +46,8 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
     if (_error != null) {
       return Scaffold(
         appBar: AppBar(title: const Text('Scan Patient QR')),
-        body: Center(child: Text(_error!, style: const TextStyle(color: Colors.red))),
+        body: Center(
+            child: Text(_error!, style: const TextStyle(color: Colors.red))),
       );
     }
     if (!_hasPermission) {

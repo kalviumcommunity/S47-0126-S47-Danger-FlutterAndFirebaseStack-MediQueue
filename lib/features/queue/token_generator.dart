@@ -18,7 +18,8 @@ class TokenGenerator {
 
   static Future<String> generateToken({String? department}) async {
     await _checkAndResetCounters();
-    final prefix = (department?.substring(0, 1).toUpperCase() ?? _defaultPrefix);
+    final prefix =
+        (department?.substring(0, 1).toUpperCase() ?? _defaultPrefix);
     _counters[prefix] = (_counters[prefix] ?? 0) + 1;
     return '$prefix-${_counters[prefix]!.toString().padLeft(3, '0')}';
   }

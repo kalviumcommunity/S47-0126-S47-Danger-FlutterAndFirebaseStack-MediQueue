@@ -5,7 +5,9 @@ class StatCard extends StatelessWidget {
   final int count;
   final Color color;
 
-  const StatCard({Key? key, required this.title, required this.count, required this.color}) : super(key: key);
+  const StatCard(
+      {Key? key, required this.title, required this.count, required this.color})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +19,13 @@ class StatCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(title, style: TextStyle(fontSize: 16, color: color, fontWeight: FontWeight.bold)),
+            Text(title,
+                style: TextStyle(
+                    fontSize: 16, color: color, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
-            Text('$count', style: TextStyle(fontSize: 28, color: color, fontWeight: FontWeight.bold)),
+            Text('$count',
+                style: TextStyle(
+                    fontSize: 28, color: color, fontWeight: FontWeight.bold)),
           ],
         ),
       ),

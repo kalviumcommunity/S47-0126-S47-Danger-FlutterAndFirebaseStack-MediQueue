@@ -5,7 +5,12 @@ class StatCard extends StatelessWidget {
   final String label;
   final int value;
   final Color color;
-  const StatCard({Key? key, required this.label, required this.value, this.color = Colors.blue}) : super(key: key);
+  const StatCard(
+      {Key? key,
+      required this.label,
+      required this.value,
+      this.color = Colors.blue})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +20,11 @@ class StatCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            Text('$value', style: Theme.of(context).textTheme.headline6?.copyWith(color: color)),
+            Text('$value',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6
+                    ?.copyWith(color: color)),
             Text(label, style: Theme.of(context).textTheme.caption),
           ],
         ),

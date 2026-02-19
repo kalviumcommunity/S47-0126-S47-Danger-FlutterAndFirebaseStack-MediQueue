@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class AppErrorWidget extends StatelessWidget {
   final String message;
   final VoidCallback? onRetry;
-  const AppErrorWidget({Key? key, required this.message, this.onRetry}) : super(key: key);
+  const AppErrorWidget({Key? key, required this.message, this.onRetry})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,11 @@ class AppErrorWidget extends StatelessWidget {
           children: [
             const Icon(Icons.error_outline, size: 64, color: Colors.red),
             const SizedBox(height: 16),
-            Text(message, style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.red)),
+            Text(message,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(color: Colors.red)),
             if (onRetry != null) ...[
               const SizedBox(height: 24),
               ElevatedButton.icon(

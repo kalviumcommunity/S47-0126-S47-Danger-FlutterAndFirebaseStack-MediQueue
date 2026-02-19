@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
@@ -19,7 +18,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     if (_formKey.currentState!.validate()) {
       setState(() => _isLoading = true);
       try {
-        await context.read<AuthService>().sendPasswordResetEmail(_emailController.text);
+        await context
+            .read<AuthService>()
+            .sendPasswordResetEmail(_emailController.text);
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Password reset email sent')),
@@ -52,16 +53,17 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               TextFormField(
                 controller: _emailController,
                 decoration: const InputDecoration(labelText: 'Email'),
-                validator: (value) => 
-                  value != null && value.contains('@') ? null : 'Enter valid email',
+                validator: (value) => value != null && value.contains('@')
+                    ? null
+                    : 'Enter valid email',
               ),
               const SizedBox(height: 24),
-              _isLoading 
-                ? const CircularProgressIndicator()
-                : ElevatedButton(
-                    onPressed: _sendResetEmail,
-                    child: const Text('Send Reset Email'),
-                ),
+              _isLoading
+                  ? const CircularProgressIndicator()
+                  : ElevatedButton(
+                      onPressed: _sendResetEmail,
+                      child: const Text('Send Reset Email'),
+                    ),
             ],
           ),
         ),

@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 enum AppointmentStatus { pending, confirmed, cancelled, completed }
@@ -44,7 +43,7 @@ class AppointmentModel {
       doctorName: map['doctorName'] ?? '',
       dateTime: (map['dateTime'] as Timestamp).toDate(),
       status: AppointmentStatus.values.firstWhere(
-            (e) => e.name == map['status'],
+        (e) => e.name == map['status'],
         orElse: () => AppointmentStatus.pending,
       ),
       reason: map['reason'] ?? '',

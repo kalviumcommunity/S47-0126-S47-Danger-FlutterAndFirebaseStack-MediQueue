@@ -5,7 +5,8 @@ import 'dart:async';
 class CountdownTimer extends StatefulWidget {
   final int seconds;
   final VoidCallback? onFinished;
-  const CountdownTimer({Key? key, required this.seconds, this.onFinished}) : super(key: key);
+  const CountdownTimer({Key? key, required this.seconds, this.onFinished})
+      : super(key: key);
 
   @override
   State<CountdownTimer> createState() => _CountdownTimerState();

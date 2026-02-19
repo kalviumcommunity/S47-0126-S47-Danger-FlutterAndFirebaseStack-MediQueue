@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
@@ -22,11 +21,11 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() => _isLoading = true);
       try {
         await context.read<AuthService>().signIn(
-          email: _emailController.text,
-          password: _passwordController.text,
-        );
+              email: _emailController.text,
+              password: _passwordController.text,
+            );
         // On successful login, authStateChanges stream will trigger update in main/app
-        // or we can manually navigate if needed. 
+        // or we can manually navigate if needed.
         // Typically, we listen to the stream in a wrapper widget.
         // On successful login, authStateChanges stream will trigger update in AuthWrapper
         // No manual navigation needed.
@@ -56,34 +55,38 @@ class _LoginScreenState extends State<LoginScreen> {
               TextFormField(
                 controller: _emailController,
                 decoration: const InputDecoration(labelText: 'Email'),
-                validator: (value) => 
-                  value != null && value.contains('@') ? null : 'Enter valid email',
+                validator: (value) => value != null && value.contains('@')
+                    ? null
+                    : 'Enter valid email',
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _passwordController,
                 obscureText: true,
                 decoration: const InputDecoration(labelText: 'Password'),
-                validator: (value) => 
-                  value != null && value.length >= 6 ? null : 'Password must be 6+ chars',
+                validator: (value) => value != null && value.length >= 6
+                    ? null
+                    : 'Password must be 6+ chars',
               ),
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                  onPressed: () => Navigator.pushNamed(context, AppRoutes.forgotPassword),
+                  onPressed: () =>
+                      Navigator.pushNamed(context, AppRoutes.forgotPassword),
                   child: const Text('Forgot Password?'),
                 ),
               ),
               const SizedBox(height: 24),
-               _isLoading 
-                ? const CircularProgressIndicator()
-                : ElevatedButton(
-                    onPressed: _login,
-                    child: const Text('Login'),
-                ),
+              _isLoading
+                  ? const CircularProgressIndicator()
+                  : ElevatedButton(
+                      onPressed: _login,
+                      child: const Text('Login'),
+                    ),
               const SizedBox(height: 16),
               TextButton(
-                onPressed: () => Navigator.pushNamed(context, AppRoutes.register),
+                onPressed: () =>
+                    Navigator.pushNamed(context, AppRoutes.register),
                 child: const Text('Don\'t have an account? Sign Up'),
               ),
             ],

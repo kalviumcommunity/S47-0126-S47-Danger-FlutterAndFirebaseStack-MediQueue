@@ -7,11 +7,13 @@ class DoctorDirectoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Example data
-    final doctors = List.generate(12, (i) => {
-      'name': 'Dr. Smith $i',
-      'photoUrl': 'https://i.pravatar.cc/150?img=${i + 1}',
-      'specialty': i % 2 == 0 ? 'Cardiology' : 'Pediatrics',
-    });
+    final doctors = List.generate(
+        12,
+        (i) => {
+              'name': 'Dr. Smith $i',
+              'photoUrl': 'https://i.pravatar.cc/150?img=${i + 1}',
+              'specialty': i % 2 == 0 ? 'Cardiology' : 'Pediatrics',
+            });
     return Scaffold(
       appBar: AppBar(title: const Text('Doctor Directory')),
       body: Padding(

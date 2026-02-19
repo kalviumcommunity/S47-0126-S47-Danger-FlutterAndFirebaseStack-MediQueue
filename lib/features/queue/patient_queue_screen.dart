@@ -25,15 +25,17 @@ class PatientQueueScreen extends StatelessWidget {
           }
 
           final queueEntries = snapshot.data ?? [];
-          
+
           // Map QueueEntry to the format expected by PatientQueueList
           // Ideally PatientQueueList should be updated to accept QueueEntry
-          final patients = queueEntries.map((entry) => {
-            'name': 'Patient ${entry.patientId}', 
-            'token': entry.token,
-            'status': entry.status,
-            'id': entry.id,
-          }).toList();
+          final patients = queueEntries
+              .map((entry) => {
+                    'name': 'Patient ${entry.patientId}',
+                    'token': entry.token,
+                    'status': entry.status,
+                    'id': entry.id,
+                  })
+              .toList();
 
           return PatientQueueList(patients: patients);
         },

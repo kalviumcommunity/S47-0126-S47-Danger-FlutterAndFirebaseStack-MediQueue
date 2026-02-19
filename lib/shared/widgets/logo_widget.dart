@@ -12,7 +12,8 @@ class LogoWidget extends StatelessWidget {
       width: size,
       height: size,
       fit: BoxFit.contain,
-      errorBuilder: (context, error, stackTrace) => Icon(Icons.local_hospital, size: size, color: Colors.blue),
+      errorBuilder: (context, error, stackTrace) =>
+          Icon(Icons.local_hospital, size: size, color: Colors.blue),
     );
   }
 }
