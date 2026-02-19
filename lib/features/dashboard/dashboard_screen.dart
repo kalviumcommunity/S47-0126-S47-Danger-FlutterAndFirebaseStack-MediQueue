@@ -6,17 +6,23 @@ import '../../core/constants/app_spacing.dart';
 import '../../services/sync_service.dart';
 
 import '../auth/services/auth_service.dart';
+import '../auth/providers/user_provider.dart';
+import '../auth/models/user_model.dart';
+import '../../routes/app_routes.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SyncService>(
-      builder: (context, syncService, child) {
+    return Consumer2<SyncService, UserProvider>(
+      builder: (context, syncService, userProvider, child) {
+        final user = userProvider.user;
+        final role = user?.role.name.toUpperCase() ?? 'GUEST';
+
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Dashboard'),
+            title: Text('Dashboard - $role'),
             actions: [
               IconButton(
                 icon: const Icon(Icons.logout),
@@ -43,6 +49,18 @@ class DashboardScreen extends StatelessWidget {
                 child: ListView(
                   padding: const EdgeInsets.all(AppSpacing.md),
                   children: [
+                    // Role Specific Section
+                    if (userProvider.isAdmin) 
+                      _buildAdminSection(context),
+                      
+                    if (userProvider.isDoctor || userProvider.isAdmin)
+                      _buildDoctorSection(context),
+
+                    if (userProvider.isReceptionist || userProvider.isAdmin)
+                      _buildReceptionistSection(context),
+
+                    const SizedBox(height: AppSpacing.md),
+                    
                     // Responsive header with logo and menu
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -148,6 +166,52 @@ class DashboardScreen extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildAdminSection(BuildContext context) {
+    return Card(
+      color: Colors.red[50],
+      child: ListTile(
+        leading: const Icon(Icons.admin_panel_settings, color: Colors.red),
+        title: const Text('Admin Console'),
+        subtitle: const Text('Manage users and settings'),
+        trailing: const Icon(Icons.arrow_forward_ios),
+        onTap: () {
+          // Navigate to admin only screen
+        },
+      ),
+    );
+  }
+
+  Widget _buildDoctorSection(BuildContext context) {
+    return Card(
+      color: Colors.blue[50],
+      child: ListTile(
+        leading: const Icon(Icons.medical_services, color: Colors.blue),
+        title: const Text('Doctor Portal'),
+        subtitle: const Text('View appointments and patients'),
+        trailing: const Icon(Icons.arrow_forward_ios),
+        onTap: () {
+          Navigator.pushNamed(context, AppRoutes.doctorView);
+        },
+      ),
+    );
+  }
+
+  Widget _buildReceptionistSection(BuildContext context) {
+    return Card(
+      color: Colors.green[50],
+      child: ListTile(
+        leading: const Icon(Icons.desk, color: Colors.green),
+        title: const Text('Reception Desk'),
+        subtitle: const Text('Manage queue and tokens'),
+        trailing: const Icon(Icons.arrow_forward_ios),
+        onTap: () {
+           // Navigate to Queue Management
+           Navigator.pushNamed(context, AppRoutes.queue, arguments: QueueArguments('doc123')); // Mock doctor ID
+        },
+      ),
     );
   }
 }

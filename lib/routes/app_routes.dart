@@ -16,8 +16,7 @@ class AppRoutes {
   static const String widgetDemo = '/widget-demo';
 }
 
-// TODO: Implement these screens
-
+// Placeholder screens - DoctorViewScreen is implemented in features/dashboard
 class QueueScreen extends StatelessWidget {
   final String doctorId;
   const QueueScreen({Key? key, required this.doctorId}) : super(key: key);
@@ -30,11 +29,13 @@ class PatientDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(body: Center(child: Text('PatientDetailsScreen for $patientId')));
 }
+/*
 class DoctorViewScreen extends StatelessWidget {
   const DoctorViewScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) => Scaffold(body: Center(child: Text('DoctorViewScreen')));
 }
+*/
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
   @override
@@ -45,6 +46,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(body: Center(child: Text('ProfileScreen')));
 }
+
 class NotFoundScreen extends StatelessWidget {
   const NotFoundScreen({Key? key}) : super(key: key);
   @override

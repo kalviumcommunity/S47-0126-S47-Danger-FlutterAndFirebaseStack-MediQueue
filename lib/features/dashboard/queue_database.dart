@@ -7,12 +7,15 @@ class QueueDatabase {
   final StreamController<List<Patient>> _controller = StreamController.broadcast();
 
   Stream<List<Patient>> watchQueue() => _controller.stream;
+  
+  // Public getter
+  List<Patient> get queue => List.unmodifiable(_queue);
 
   void addPatient(Patient patient) {
     _queue.add(patient);
     _controller.add(List.unmodifiable(_queue));
   }
-
+// ... rest is same
   void updatePatientStatus(String id, String status) {
     final idx = _queue.indexWhere((p) => p.id == id);
     if (idx != -1) {
